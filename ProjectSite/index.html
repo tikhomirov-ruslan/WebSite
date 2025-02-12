@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-g"
+    <meta http-equiv="X-UA-Compatible" content="IE=ed">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="site-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Поиск и бронирование отелей в Алматы</title>
+    
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo"><i class="fas fa-hotel"></i>HotelFinder</a>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#search">Поиск отелей</a></li>
+                        <li><a href="#hotels">Отели</a></li>
+                        <li><a href="#about">О нас</a></li>
+                    </ul>
+                </nav>
+
+                <div class="auth-buttons">
+                    <button onclick="openModal('register')"><i class="fas fa-user-plus"></i> Регистрация</button>
+                    <button onclick="openModal('login')"><i class="fas fa-sign-in-alt"></i> Войти</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="home">
+        <section class="hero">
+            <div>
+                <h2>Найдите идеальный отель в Алматы</h2>
+                <p>Лучшие предложения от 3-х звезд до люксовых апартаментов</p>
+            </div>
+        </section>
+    </section>
+    
+    <section id="search">
+        <div class="search-container">
+            <form class="search-form">
+                <div class="form-group">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Введите название отеля">
+                </div>
+
+                <div class="form-group">
+                <i class="fas fa-calendar-alt"></i>
+                <input type="date" placeholder="Заезд">
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="date" placeholder="Выезд">
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-users"></i>
+                    <select>
+                        <option value="" disabled selected>Выберите кол-во гостей</option>
+                        <option value="1">1 гость</option>
+                        <option value="2">2 гостя</option>
+                        <option value="3">3 гостя</option>
+                        <option value="4">4 гостя</option>
+                        <option value="5+">5+ гостей</option>
+                    </select>
+                </div>
+
+                <button type="submit">Найти отель <i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <section id="hotels">
+        <section class="hotel-grid">
+        <!-- Пример карточки отеля -->
+            <div class="hotel-card">
+                <div class="hotel-image" style="background-image: url('https://source.unsplash.com/800x600/?hotel')"></div>
+                <div class="hotel-info">
+                    <h3>Ритц Карлтон Алматы</h3>
+                    <div class="hotel-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>Роскошный 5-звездочный отель в центре города</p>
+                    <div class="hotel-price">₸ 45 000 / ночь</div>
+                    <button class="book-button">Забронировать</button>
+                </div>
+            </div>
+        <!-- Добавьте больше карточек по аналогии -->
+        </section>
+    </section>
+
+    <div class="container">
+        <figure>
+            <figcaption>
+                <!-- <img src="./assets/Icon (Traced).svg" alt=""> -->
+                <h2>Заголовок</h2>
+                <p>Описание</p>
+            </figcaption>
+        </figure>
+
+        <figure>
+            <figcaption>
+                <!-- <img src="./assets/JS.png" alt=""> -->
+                <h2>Заголовок</h2>
+                <p>Описание</p>
+            </figcaption>
+        </figure>
+
+        <figure>
+            <section id="contact">
+            <figcaption>
+                <!-- <img src="./assets/Html 5.png" alt=""> -->
+                <h2>Контакты</h2>
+                <p>Описание</p>
+                <!-- <p>Свяжитесь с нами по телефону: +7 (771) 355-65-45 или напишите на email: info@hotel-almaty.kz</p> -->
+            </figcaption>
+            </section>
+        </figure>
+
+        <figure>
+            <section id="about">
+            <figcaption>
+                <!-- <img src="./assets/JSFiddle.png" alt=""> -->
+                <h2>О нас</h2>
+                <p>Описание</p>
+                <!-- <p>Мы являемся ведущим сервисом по поиску и бронированию отелей в Алматы. Наша цель — сделать ваш отдых комфортным и незабываемым.</p> -->
+            </figcaption>
+            </section>
+        </figure>
+
+    </div>
+
+    <script src="./jq.js"></script>
+    <script src="./main.js"></script>
+
+    <br>
+    <br>
+    <br>
+    
+    <!-- <script src="./jq.js"></script> -->
+
+    <script src="./main.js"></script>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>О нас</h3>
+                <p>Лучший сервис для бронирования отелей в Алматы</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +7 771 355 65 45</li>
+                    <li><i class="fas fa-envelope"></i> info@hotelfinder.kz</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Соцсети</h3>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+            </div>
+        </div>
+        <!-- <p>&copy; 2025 Поиск и бронирование отелей в Алматы. Все права защищены.</p> -->
+    </footer>
+
+    <bottom>
+        <p>&copy; 2025 Поиск и бронирование отелей в Алматы. Все права защищены.</p>
+    </bottom>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('register')">&times;</span>
+            <h2>Регистрация</h2>
+            <form>
+                <input type="text" placeholder="Имя" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('login')">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <form>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>

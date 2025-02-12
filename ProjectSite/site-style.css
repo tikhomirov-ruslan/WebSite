@@ -1,0 +1,488 @@
+@font-face {
+    font-family: "Inter";
+    src: url("./fonts/Inter/Inter-VariableFont_slnt\,wght.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body{
+    background-color: #182033;
+    color: #182033;
+    /* box-sizing: border-box; */
+    /* margin: 0;
+    padding: 0; */
+    font-family: "Inter";
+    line-height: 1.6;
+}
+
+header {
+    background-color: #E3E7B4;
+    color: #182033;
+    padding: 1rem;;
+    /* text-align: center; */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    /* color: #182033; */
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .logo {
+    color: #182033;
+    font-size: 1.5rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+} */
+
+.logo i {
+    margin-right: 0.5rem;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    font-size: 17px;
+}
+
+.nav-menu a {
+    color: #182033;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    /* color: #415788; */
+    color: white;
+}
+
+/* .auth-buttons {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+} */    
+
+.auth-buttons button {
+    background: #182033;
+    color: #E3E7B4;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-left: 1rem;
+}
+
+.auth-buttons button:hover {
+    background-color: #415788;
+}
+
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://source.unsplash.com/1600x900/?almaty') center/cover;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* .container {
+    padding: 30px;
+} */
+
+.search-form {
+    background-color: #E3E7B4;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* max-width: 600px; */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.search-container {
+    max-width: 800px;
+    margin: -2rem auto 0;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.search-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #182033;
+}
+
+.search-form input,
+.search-form select,
+.search-form button {
+    width: 100%;
+    padding: 12px 15px 12px 35px;
+    border: 1px solid #182033;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.search-form button {
+    background: #182033;
+    color: #E3E7B4;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 2px solid transparent;
+}
+
+.search-form button:hover {
+    background: #415788;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    /* border-color: #182033; */
+}
+
+.search-form button i {
+    transition: transform 0.3s ease;
+}
+
+.search-form button:hover i {
+    transform: translateX(3px);
+}
+
+.hotel-grid {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.hotel-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.hotel-card:hover {
+    transform: translateY(-15px);
+}
+
+.hotel-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.hotel-info {
+    padding: 1.5rem;
+}
+
+.hotel-rating {
+    color: #FFD700;
+    margin: 0.5rem 0;
+}
+
+.hotel-price {
+    color: #182033;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 3rem 2rem;;
+    margin-top: 5rem;
+}
+
+bottom {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 0.5rem 0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* :root{
+    --main: #E3E784;
+} */
+
+/* .header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    position: relative;
+
+    min-height: 120px;
+
+    padding: 35px 0;
+    text-align: center;
+}
+
+a{
+    color: var(--main);
+    outline: none;
+    text-decoration: none;
+} */
+
+.sign-in{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo{
+    flex-direction: row;
+    color: #182033;
+    gap: 20px;
+    align-items: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo h1{
+    font-size: 24px;
+}
+
+/* .header::after{
+    content: "";
+    position: absolute;
+
+    bottom: 0;
+    left: 150px;
+    
+    height: 1px;
+    width: 80%;
+    background-color: var(--main);
+} */
+
+
+
+/* .main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* align-items: center; */
+
+    /* margin-top: 50px;
+    margin-left: 140px;
+    margin-right: 140px; */
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+figure {
+    overflow: hidden;
+    font-family: "Inter";
+    width: 270px;
+    height: 360px;
+    background-color: #E3E7B4;
+    color: #182033;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 50px;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    position: relative;
+}
+
+figure h2{
+    transition: 0.3s;
+    transform: translateY(20px);
+}
+
+figure p{
+    transition: 0.3s;
+    transform: translateY(-20px);
+    opacity: 0;
+    visibility: hidden;
+    font-size: 18px;
+    width: 204px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    
+}
+
+figure:before{
+    content: "";
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    bottom: 5%;
+    left: 5%;
+    border-top: solid 2px #182033;
+    border-bottom: solid 2px #182033;
+    border-radius: 50px;
+    transition: 0.3s;
+    transform: scaleX(0);
+}
+
+figure:after{
+    content: "";
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    bottom: 5%;
+    left: 5%;
+    border-left: solid 2px #182033;
+    border-right: solid 2px #182033;
+    border-radius: 50px;
+    transition: 0.3s;
+    transform: scaleY(0);
+}
+
+figure:hover:before,
+figure:hover:after {
+    transform: scale(1);
+}
+
+figure:hover h2,
+figure:hover p{
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: white;
+    color: #182033;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+}
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #182033;
+    border-radius: 5px; 
+}
+.modal-content button {
+    background-color: #182033;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.modal-content button:hover {
+    background-color: #415788;
+}
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .search-container {
+        margin: -4rem 1rem 0;
+    }
+
+    
+}
