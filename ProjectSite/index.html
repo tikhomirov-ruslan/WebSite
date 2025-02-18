@@ -17,9 +17,9 @@
             <a href="#" class="logo"><i class="fas fa-hotel"></i>HotelFinder</a>
                 <nav>
                     <ul class="nav-menu">
-                        <li><a href="#home">Главная</a></li>
+                        <li><a href="index.html">Главная</a></li>
                         <li><a href="#search">Поиск отелей</a></li>
-                        <li><a href="#hotels">Отели</a></li>
+                        <li><a href="hotel-detail.html">Отели</a></li>
                         <li><a href="#about">О нас</a></li>
                     </ul>
                 </nav>
@@ -76,7 +76,7 @@
     </section>
 
     <!-- Filters -->
-    <div class="filters">
+    <!-- <div class="filters">
         <select id="sort" onchange="sortHotels()">
             <option value="price_asc">По цене (дешевые)</option>
             <option value="price_desc">По цене (дорогие)</option>
@@ -88,21 +88,21 @@
             <label><input type="checkbox" name="parking"> Парковка</label>
             <label><input type="checkbox" name="pool"> Бассейн</label>
         </div>
-    </div>
+    </div> -->
 
     <section id="hotels">
         <section class="hotel-grid">
         <!-- Пример карточки отеля -->
             <div class="hotel-card">
-                <div class="hotel-image" style="background-image: url('https://source.unsplash.com/800x600/?hotel')"></div>
+                <div class="hotel-image" style="background-image: url('https://stroyex.pro/wp-content/uploads/2023/05/kes_3839.jpg')"></div>
                 <div class="hotel-info">
-                    <h3>Ритц Карлтон Алматы</h3>
-                    <div class="hotel-rating">
+                    <h3>Алматы</h3>
+                    <!-- <div class="hotel-rating">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p>Роскошный 5-звездочный отель в центре города</p>
-                    <div class="hotel-price">₸ 45 000 / ночь</div>
-                    <button class="book-button">Забронировать</button>
+                    </div> -->
+                    <p>Отели в центре города</p>
+                    <!-- <div class="hotel-price">₸ 45 000 / ночь</div>
+                    <button class="book-button">Забронировать</button> -->
                 </div>
             </div>
         <!-- Добавьте больше карточек по аналогии -->
@@ -150,20 +150,13 @@
 
     </div>
 
-    <script src="./jq.js"></script>
-    <script src="./main.js"></script>
-
     <br>
     <br>
     <br>
-    
-    <!-- <script src="./jq.js"></script> -->
-
-    <script src="./main.js"></script>
 
 <!-- Добавьте секцию с картой -->
     <section class="map-section">
-        <h2>Отели на карте</h2>
+        <!-- <h2>Отели на карте</h2> -->
         <div id="map" style="height: 400px; margin: 20px; border-radius: 10px;"></div>
     </section>
 

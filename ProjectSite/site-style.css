@@ -194,7 +194,7 @@ header {
 }
 
 .hotel-grid {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 3rem auto;
     padding: 0 2rem;
     display: grid;
