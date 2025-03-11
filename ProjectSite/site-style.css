@@ -19,6 +19,9 @@ body{
     padding: 0; */
     font-family: "Inter";
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -47,6 +50,7 @@ header {
     text-decoration: none;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .logo i {
@@ -70,6 +74,179 @@ header {
     /* color: #415788; */
     color: white;
 }
+
+main {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.auth-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.auth-form {
+    display: grid;
+    gap: 1.5rem;
+    background-color: #E3E7B4;
+    /* padding: 20px; */
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* max-width: 600px; */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: grid;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+  }
+  
+  .form-group input {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  /* Стили для страницы оплаты */
+  .payment-methods {
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+    justify-content: center;
+  }
+
+  .payment-form {
+    display: grid;
+    gap: 1.5rem;
+    background-color: #E3E7B4;
+    /* padding: 20px; */
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* max-width: 600px; */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .payment-card {
+    border: 2px solid white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+  }
+  
+  .payment-card.active {
+    border-color: white;
+    background: #f0f8ff;
+  }
+  
+  .card-element {
+    color: white;
+    max-width: 600px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  .card-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+  
+  .card-icons img {
+    height: 30px;
+    opacity: 0.7;
+  }
+  
+  /* Стили для чата */
+  .chat-container {
+    background: #5BA4E6;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .message {
+    padding: 0.8rem 1.2rem;
+    border-radius: 15px;
+    max-width: 80%;
+    margin: 0.5rem 0;
+  }
+  
+  .user-message {
+    background: #5BA4E6;
+    color: white;
+    margin-left: auto;
+  }
+  
+  .bot-message {
+    background: white;
+    margin-right: auto;
+  }
+  
+  .chat-input {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  #user-input {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+  }
+  
+  .send-button {
+    background: #5BA4E6;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .send-button:hover {
+    background: #1a4561;
+  }
 
 /* .auth-buttons {
     position: absolute;
@@ -238,8 +415,8 @@ header {
 footer {
     background-color: #333;
     color: white;
-    padding: 3rem 2rem;;
-    margin-top: 5rem;
+    padding: 2rem;
+    margin-top: auto;
 }
 
 bottom {
@@ -487,6 +664,19 @@ figure:hover p{
         justify-content: center;
     }
 
+    .auth-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+
     .hero h2 {
         font-size: 2rem;
     }
@@ -580,10 +770,22 @@ figure:hover p{
         animation: spin 1s linear infinite;
     }
 
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
-    
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 }

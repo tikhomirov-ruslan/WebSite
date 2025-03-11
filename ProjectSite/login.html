@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-g"
+    <meta http-equiv="X-UA-Compatible" content="IE=ed">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="site-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <title>Поиск и бронирование отелей в Алматы</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo"><i class="fas fa-hotel"></i>HotelFinder</a>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="#search">Поиск отелей</a></li>
+                        <li><a href="hotel-detail.html">Отели</a></li>
+                        <li><a href="#about">О нас</a></li>
+                    </ul>
+                </nav>
+
+                <div class="auth-buttons">
+                    <a href="reg.html"><button onclick="openModal('register')"><i class="fas fa-user-plus"></i>Регистрация</button></a>
+                    <a href="login.html"><button onclick="openModal('login')"><i class="fas fa-sign-in-alt"></i> Войти</button></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script src="./main.js"></script>
+
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <style>
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+    
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2A5C82;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+    
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    
+    <script>
+        // Имитация загрузки данных
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.loader').style.display = 'flex';
+            setTimeout(() => {
+                document.querySelector('.loader').style.display = 'none';
+            }, 1000);
+        });
+    </script>
+
+    <main class="auth-page">
+        <div class="auth-container">
+            <h1>Вход в аккаунт</h1>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit">Войти</button>
+            </form>
+            <p>Нет аккаунта? <a href="register.html">Создать</a></p>
+        </div>
+    </main>
+</body>
+</html>

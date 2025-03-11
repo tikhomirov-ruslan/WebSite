@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-g"
+    <meta http-equiv="X-UA-Compatible" content="IE=ed">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="site-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <title>Поиск и бронирование отелей в Алматы</title>
+
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            color: white;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 70%;
+        }
+
+        .user-message {
+            background: #5BA4E6;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background: #5BA4E6;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo"><i class="fas fa-hotel"></i>HotelFinder</a>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="#search">Поиск отелей</a></li>
+                        <li><a href="hotel-detail.html">Отели</a></li>
+                        <li><a href="#about">О нас</a></li>
+                    </ul>
+                </nav>
+
+                <div class="auth-buttons">
+                    <a href="reg.html"><button onclick="openModal('register')"><i class="fas fa-user-plus"></i>Регистрация</button></a>
+                    <a href="login.html"><button onclick="openModal('login')"><i class="fas fa-sign-in-alt"></i> Войти</button></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <style>
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+    
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2A5C82;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+    
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    
+    <script>
+        // Имитация загрузки данных
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.loader').style.display = 'flex';
+            setTimeout(() => {
+                document.querySelector('.loader').style.display = 'none';
+            }, 1000);
+        });
+    </script>
+
+    <main class="assistant-page">
+        <div class="container">
+            <h1>Виртуальный помощник</h1>
+            
+            <div class="chat-container">
+                <div class="chat-messages">
+                    <div class="message bot-message">
+                        Добрый день! Чем могу помочь?
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="user-input" placeholder="Введите ваш вопрос...">
+                    <button class="send-button"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Простой чат-бот
+        const messages = document.querySelector('.chat-messages');
+        const userInput = document.getElementById('user-input');
+        
+        document.querySelector('.send-button').addEventListener('click', () => {
+            const text = userInput.value.trim();
+            if(text) {
+                // Сообщение пользователя
+                messages.innerHTML += `
+                    <div class="message user-message">${text}</div>
+                `;
+
+                // Ответ бота
+                setTimeout(() => {
+                    messages.innerHTML += `
+                        <div class="message bot-message">
+                            ${getBotResponse(text)}
+                        </div>
+                    `;
+                    messages.scrollTop = messages.scrollHeight;
+                }, 500);
+
+                userInput.value = '';
+            }
+        });
+
+        function getBotResponse(text) {
+            const lowerText = text.toLowerCase();
+            if(lowerText.includes('отмена')) return 'Для отмены бронирования перейдите в личный кабинет';
+            if(lowerText.includes('оплата')) return 'Оплата производится через безопасный шлюз CloudPayments';
+            if(lowerText.includes('контакт')) return 'Наши контакты: +7 777 123 4567';
+            return 'Пожалуйста, уточните ваш вопрос';
+        }
+    </script>
+</body>
+</html>
