@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-g"
-    <meta http-equiv="X-UA-Compatible" content="IE=ed">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="site-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -19,7 +19,7 @@
                     <ul class="nav-menu">
                         <li><a href="#home">Главная</a></li>
                         <li><a href="#search">Поиск отелей</a></li>
-                        <li><a href="#hotels">Отели</a></li>
+                        <li><a href="hotels.html">Отели</a></li>
                         <li><a href="#about">О нас</a></li>
                     </ul>
                 </nav>
@@ -45,50 +45,39 @@
             <form class="search-form">
                 <div class="form-group">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Введите название отеля">
+                    <input type="text" id="hotel-name" placeholder="Введите название отеля">
                 </div>
-
-                <div class="form-group">
-                <i class="fas fa-calendar-alt"></i>
-                <input type="date" placeholder="Заезд">
-                </div>
-
+    
                 <div class="form-group">
                     <i class="fas fa-calendar-alt"></i>
-                    <input type="date" placeholder="Выезд">
+                    <input type="date" id="check-in" placeholder="Заезд">
                 </div>
-
+    
+                <div class="form-group">
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="date" id="check-out" placeholder="Выезд">
+                </div>
+    
                 <div class="form-group">
                     <i class="fas fa-users"></i>
-                    <select>
+                    <select id="guests">
                         <option value="" disabled selected>Выберите кол-во гостей</option>
                         <option value="1">1 гость</option>
                         <option value="2">2 гостя</option>
                         <option value="3">3 гостя</option>
                         <option value="4">4 гостя</option>
-                        <option value="5+">5+ гостей</option>
+                        <option value="5">5+ гостей</option>
                     </select>
                 </div>
-
+    
                 <button type="submit">Найти отель <i class="fas fa-arrow-right"></i></button>
             </form>
         </div>
     </section>
-
-    <!-- Filters -->
-    <div class="filters">
-        <select id="sort" onchange="sortHotels()">
-            <option value="price_asc">По цене (дешевые)</option>
-            <option value="price_desc">По цене (дорогие)</option>
-            <option value="rating">По рейтингу</option>
-        </select>
-
-        <div class="amenities">
-            <label><input type="checkbox" name="wifi"> Wi-Fi</label>
-            <label><input type="checkbox" name="parking"> Парковка</label>
-            <label><input type="checkbox" name="pool"> Бассейн</label>
-        </div>
-    </div>
+    
+    <!-- Блок для отображения отелей -->
+    <div class="hotel-grid"></div>
+    
 
     <section id="hotels">
         <section class="hotel-grid">
@@ -151,7 +140,6 @@
     </div>
 
     <script src="./jq.js"></script>
-    <script src="./main.js"></script>
 
     <br>
     <br>
@@ -159,7 +147,6 @@
     
     <!-- <script src="./jq.js"></script> -->
 
-    <script src="./main.js"></script>
 
 <!-- Добавьте секцию с картой -->
     <section class="map-section">
@@ -168,7 +155,6 @@
     </section>
 
     <!-- Подключите Leaflet.js -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
     <script>
@@ -279,6 +265,8 @@
             }, 1000);
         });
     </script>
+
+<script src="script.js"></script>
 
 </body>
 
