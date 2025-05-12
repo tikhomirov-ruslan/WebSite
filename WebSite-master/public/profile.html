@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль пользователя</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+      *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif}
+      body{background:#f6f7fb;display:flex;justify-content:center;align-items:center;min-height:100vh}
+      .card{background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.1);
+          padding:2.5rem;max-width:420px;width:100%;text-align:center}
+      .card img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:1rem}
+      h2{margin-bottom:.25rem}
+      p{color:#666;margin-bottom:.75rem}
+      .btn{margin-top:1.5rem;padding:.6rem 1.5rem;border:none;border-radius:6px;
+          background:#4361ee;color:#fff;font-weight:600;cursor:pointer}
+      .btn:hover{background:#3f37c9}
+  </style>
+</head>
+<body>
+
+<div class="card" id="profileCard">
+  <!-- контент добавит JS -->
+</div>
+
+<script>
+  /* 1. Проверяем, что пользователь вошёл */
+  const u = JSON.parse(localStorage.getItem('user'));
+  if (!u) location.href = 'index.html';
+
+  /* 2. Строим карточку */
+  const card = document.getElementById('profileCard');
+  card.innerHTML = `
+    <img src="${u.photo || 'https://placehold.co/120x120?text=%F0%9F%91%A4'}" alt="Avatar">
+    <h2>${u.name}${u.surname ? ' ' + u.surname : ''}</h2>
+    <p><strong>Логин:</strong> ${u.login}</p>
+    <p><strong>Роль:</strong> ${u.role === 'admin' ? 'Администратор' : 'Пользователь'}</p>
+    <button class="btn" onclick="logout()">Выйти</button>
+  `;
+
+  /* 3. Функция выхода */
+  function logout() {
+    localStorage.removeItem('user');
+    location.href = 'index.html';
+  }
+</script>
+</body>
+</html>

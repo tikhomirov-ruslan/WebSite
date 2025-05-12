@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Информация об отеле</title>
+  <link rel="stylesheet" href="site-style.css" />
+  <style>
+      body {
+          background-color: #f0f2f5;
+          font-family: "Inter", sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+
+      .hotel-details {
+          max-width: 800px;
+          margin: 3rem auto;
+          background: white;
+          padding: 2rem;
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      }
+
+      .hotel-details img {
+          width: 100%;
+          height: auto;
+          border-radius: 10px;
+          margin-bottom: 1rem;
+      }
+
+      .hotel-details h1 {
+          margin-top: 0;
+          color: #182033;
+      }
+
+      .hotel-details p {
+          font-size: 1.1rem;
+          color: #333;
+      }
+
+      .hotel-price {
+          font-size: 1.3rem;
+          font-weight: bold;
+          color: #182033;
+          margin: 1rem 0;
+      }
+
+      .book-button {
+          background-color: #182033;
+          color: #E3E7B4;
+          padding: 12px 24px;
+          font-size: 16px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+      }
+
+      .book-button:hover {
+          background-color: #415788;
+      }
+
+      .back-link {
+          display: inline-block;
+          margin-top: 1.5rem;
+          text-decoration: none;
+          color: #415788;
+      }
+
+      .back-link:hover {
+          text-decoration: underline;
+      }
+  </style>
+</head>
+<body>
+
+<div class="hotel-details" id="hotelContainer">
+  Загрузка информации...
+</div>
+
+<script>
+  // Данные об отелях
+  const hotels = {
+    kazakhstan: {
+      title: "Отель Казахстан",
+      description: "Исторический отель с красивым фасадом, видом на центр города и панорамными пейзажами Алматы.",
+      price: "₸ 30 000 / ночь",
+      image: "https://source.unsplash.com/800x600/?almaty,hotel",
+    },
+    ritz: {
+      title: "Ритц Карлтон Алматы",
+      description: "Роскошный 5-звездочный отель в центре Алматы с высококлассным обслуживанием и шикарными номерами.",
+      price: "₸ 45 000 / ночь",
+      image: "https://source.unsplash.com/800x600/?ritz,hotel,luxury",
+    },
+    holiday: {
+      title: "Holiday Inn Express",
+      description: "Современный и уютный отель с удобным расположением и отличным соотношением цены и качества.",
+      price: "₸ 25 000 / ночь",
+      image: "https://source.unsplash.com/800x600/?holiday,hotel",
+    }
+    // Можно добавлять другие отели по аналогии
+  };
+
+  // Получаем параметр id из URL (например, hotel.html?id=ritz)
+  const params = new URLSearchParams(window.location.search);
+  const hotelId = params.get("id");
+  const hotel = hotels[hotelId];
+  const container = document.getElementById("hotelContainer");
+
+  if (!hotel) {
+    container.innerHTML = `<p>❌ Отель не найден. <a class="back-link" href="index.html">Вернуться на главную</a></p>`;
+  } else {
+    container.innerHTML = `
+        <img src="${hotel.image}" alt="${hotel.title}">
+        <h1>${hotel.title}</h1>
+        <p>${hotel.description}</p>
+        <div class="hotel-price">${hotel.price}</div>
+        <button class="book-button" onclick="bookHotel()">Забронировать</button>
+        <br/>
+        <a class="back-link" href="index.html">← Назад к поиску отелей</a>
+      `;
+  }
+
+  function bookHotel() {
+    // Пример проверки, если пользователь авторизован
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      alert("Пожалуйста, войдите в аккаунт, чтобы забронировать отель.");
+      window.location.href = "index.html"; // Либо открытие модального окна для входа
+      return;
+    }
+
+    // Сохраняем данные выбранного отеля для использования на странице оплаты
+    localStorage.setItem("hotelName", hotel.title);
+    localStorage.setItem("hotelPrice", hotel.price);
+
+    alert(`Спасибо за бронирование, ${user.name}!`);
+    // Редирект на страницу оплаты
+    window.location.href = "payment.html";
+  }
+</script>
+
+<!-- Если есть дополнительный файл hotels.js, он может быть подключён здесь -->
+<script src="hotels.js"></script>
+
+</body>
+</html>

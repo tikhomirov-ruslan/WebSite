@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Поиск и бронирование отелей в Алматы</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="site-style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+
+<body>
+<!-- Header -->
+<header>
+  <div class="header-content">
+    <a href="#" class="logo"><i class="fas fa-hotel"></i>HotelFinder</a>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="#home">Главная</a></li>
+        <li><a href="#search">Поиск отелей</a></li>
+        <li><a href="#hotels">Отели</a></li>
+        <li><a href="#about">О нас</a></li>
+      </ul>
+    </nav>
+    <div class="auth-buttons" id="authArea"></div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section id="home" class="hero">
+  <div>
+    <h2>Найдите идеальный отель в Алматы</h2>
+    <p>Лучшие предложения от 3-х звёзд до люксовых апартаментов</p>
+  </div>
+</section>
+
+<!-- Search -->
+<section id="search">
+  <div class="search-container">
+    <form class="search-form" id="filterForm">
+      <div class="form-group"><i class="fas fa-search"></i><input type="text" id="searchName" placeholder="Введите название отеля"/></div>
+      <div class="form-group"><i class="fas fa-calendar-alt"></i><input type="date" id="checkIn"  placeholder="Заезд" /></div>
+      <div class="form-group"><i class="fas fa-calendar-alt"></i><input type="date" id="checkOut" placeholder="Выезд" /></div>
+      <div class="form-group">
+        <i class="fas fa-users"></i>
+        <select id="guestCount">
+          <option disabled selected>Выберите кол-во гостей</option>
+          <option value="1">1 гость</option><option value="2">2 гостя</option>
+          <option value="3">3 гостя</option><option value="4">4 гостя</option>
+          <option value="5">5+ гостей</option>
+        </select>
+      </div>
+      <button type="submit">Найти отель <i class="fas fa-arrow-right"></i></button>
+    </form>
+  </div>
+</section>
+
+<!-- Hotels -->
+<section id="hotels" class="hotel-grid"></section>
+
+<!-- Инфо-блоки -->
+<div class="container">
+  <figure><figcaption><h2>Заголовок</h2><p>Описание</p></figcaption></figure>
+  <figure><figcaption><h2>Заголовок</h2><p>Описание</p></figcaption></figure>
+  <figure id="contact"><figcaption><h2>Контакты</h2><p>Описание</p></figcaption></figure>
+  <figure id="about"><figcaption><h2>О нас</h2><p>Описание</p></figcaption></figure>
+</div>
+
+<!-- Карта -->
+<section class="map-section">
+  <h2>Отели на карте</h2>
+  <div id="map" style="height:400px;margin:20px;border-radius:10px;"></div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section"><h3>О нас</h3><p>Лучший сервис для бронирования отелей в Алматы</p></div>
+    <div class="footer-section"><h3>Контакты</h3>
+      <ul><li><i class="fas fa-phone"></i> +7 771 355-65-45</li><li><i class="fas fa-envelope"></i> info@hotelfinder.kz</li></ul>
+    </div>
+    <div class="footer-section"><h3>Соцсети</h3>
+      <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+    </div>
+  </div>
+</footer>
+<div style="text-align:center;padding:10px;">&copy; 2025 Поиск и бронирование отелей в Алматы. Все права защищены.</div>
+
+<!-- ========== Модалки ========== -->
+
+<!-- Регистрация -->
+<!-- Регистрация -->
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('register')">&times;</span>
+    <h2>Регистрация</h2>
+    <form id="registerForm">
+      <input type="text"
+             id="regName"
+             placeholder="Имя"
+             required />
+
+      <input type="text"
+             id="regSurname"
+             placeholder="Фамилия"
+             required />
+
+      <input type="text"
+             id="regLogin"
+             placeholder="Логин"
+             required />
+
+      <input type="email"
+             id="regEmail"
+             placeholder="E-mail"
+             required />
+
+      <input type="url"
+             id="regPhoto"
+             placeholder="URL фото (необязательно)" />
+
+      <input type="password"
+             id="regPassword"
+             placeholder="Пароль"
+             required />
+
+      <input type="password"
+             id="regConfirm"
+             placeholder="Подтверждение пароля"
+             required />
+
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- Вход -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('login')">&times;</span>
+    <h2>Вход</h2>
+    <form id="loginForm">
+      <input type="text"     id="loginLogin"    placeholder="Логин"   required />
+      <input type="password" id="loginPassword" placeholder="Пароль"  required />
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+</div>
+
+<!-- Loader -->
+<div class="loader"><div class="spinner"></div></div>
+
+<!-- Скрипты -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script defer src="hotels.js"></script>
+<script defer src="main.js"></script>
+
+<!-- Ассистент -->
+<a href="assistant.html" class="assistant-launch-button" title="Виртуальный помощник">🤖 Чем я могу вам помочь?</a>
+</body>
+</html>

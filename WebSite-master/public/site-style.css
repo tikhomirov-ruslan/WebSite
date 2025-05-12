@@ -1,0 +1,184 @@
+@font-face{
+    font-family:"Inter";
+    src:url("public/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+    font-style:normal;font-weight:normal;
+}
+
+/* ===== reset ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#182033;color:#182033;font-family:"Inter";line-height:1.6}
+
+/* ===== HEADER ===== */
+header{
+    background:#E3E7B4;color:#182033;padding:1rem;
+    box-shadow:0 2px 5px rgba(0,0,0,.1);
+    position:sticky;top:0;z-index:1000;
+}
+.header-content{
+    max-width:1200px;margin:0 auto;
+    display:flex;justify-content:space-between;align-items:center;
+}
+.logo{color:#182033;font-size:1.5rem;text-decoration:none;display:flex;align-items:center;gap:20px}
+.logo i{margin-right:.5rem}
+
+.nav-menu{display:flex;gap:2rem;list-style:none}
+.nav-menu a{color:#182033;text-decoration:none;transition:.3s}
+.nav-menu a:hover{color:#fff}
+
+/* === auth line (новое) === */
+.auth-line{
+    display:flex;align-items:center;gap:.75rem;
+}
+.auth-avatar{
+    width:32px;height:32px;border-radius:50%;object-fit:cover;
+}
+.auth-name{font-weight:600;color:#000}
+.auth-logout{
+    padding:.35rem .9rem;border:none;border-radius:6px;
+    background:#182033;color:#E3E7B4;cursor:pointer;
+    transition:.3s;
+}
+.auth-logout:hover{background:#415788}
+
+/* старые стили кнопок (когда пользователь НЕ залогинен) */
+.auth-buttons button{
+    background:#182033;color:#E3E7B4;border:none;padding:.5rem 1rem;
+    border-radius:5px;cursor:pointer;transition:.3s;margin-left:1rem;
+}
+.auth-buttons button:hover{background:#415788}
+
+/* ===== HERO ===== */
+.hero{
+    background:
+            linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
+            url('https://source.unsplash.com/1600x900/?almaty') center/cover;
+    height:60vh;display:flex;align-items:center;justify-content:center;
+    color:#fff;text-align:center;padding:2rem;
+}
+.hero h2{font-size:2.5rem;margin-bottom:1rem}
+
+/* ===== SEARCH ===== */
+.search-container{
+    max-width:800px;margin:-2rem auto 0;padding:2rem;
+    background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+.search-form{
+    background:#E3E7B4;padding:2rem;border-radius:5px;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;
+}
+.form-group{position:relative}
+.form-group i{
+    position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#182033;
+}
+.search-form input,.search-form select,.search-form button{
+    width:100%;padding:12px 15px 12px 35px;border:1px solid #182033;
+    border-radius:5px;font-size:1rem;
+}
+.search-form button{
+    background:#182033;color:#E3E7B4;padding:12px 20px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    transition:.3s;border:2px solid transparent;
+}
+.search-form button:hover{background:#415788;transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.2)}
+.search-form button i{transition:.3s}
+.search-form button:hover i{transform:translateX(3px)}
+
+/* ===== HOTELS ===== */
+.hotel-grid{
+    max-width:1200px;margin:3rem auto;padding:0 2rem;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;
+}
+.hotel-card{
+    background:#fff;border-radius:10px;overflow:hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,.1);transition:.3s;
+}
+.hotel-card:hover{transform:translateY(-15px)}
+.hotel-image{height:200px;background-size:cover;background-position:center}
+.hotel-info{padding:1.5rem}
+.hotel-rating{color:#FFD700;margin:.5rem 0}
+.hotel-price{color:#182033;font-size:1.2rem;font-weight:700}
+
+/* ===== INFO FIGURES ===== */
+.container{
+    max-width:1200px;margin:3rem auto;
+    display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;
+}
+figure{
+    width:270px;height:360px;background:#E3E7B4;color:#182033;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;border-radius:50px;position:relative;padding:1rem;transition:.3s;
+}
+figure h2{transition:.3s;transform:translateY(20px)}
+figure p{transition:.3s;transform:translateY(-20px);opacity:0;visibility:hidden;font-size:18px;width:204px;line-height:26px}
+figure:before,figure:after{
+    content:"";position:absolute;top:5%;right:5%;bottom:5%;left:5%;
+    border-radius:50px;transition:.3s;
+}
+figure:before{border-top:2px solid #182033;border-bottom:2px solid #182033;transform:scaleX(0)}
+figure:after {border-left:2px solid #182033;border-right:2px solid #182033;transform:scaleY(0)}
+figure:hover:before,figure:hover:after{transform:scale(1)}
+figure:hover h2,figure:hover p{transform:translateY(0);opacity:1;visibility:visible}
+
+/* ===== FOOTER ===== */
+footer{
+    background:#333;color:#fff;padding:3rem 2rem;margin-top:5rem;
+}
+.footer-content{
+    max-width:1200px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;
+}
+.footer-section h3{margin-bottom:1rem}
+.footer-section ul{list-style:none}
+.footer-section a{color:#fff;text-decoration:none;display:block;margin:.5rem 0}
+
+/* ===== MODAL ===== */
+.modal{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+    justify-content:center;align-items:center;
+}
+.modal-content{
+    background:#fff;color:#182033;padding:20px;border-radius:5px;width:300px;text-align:center;
+}
+.modal-content input{
+    width:100%;padding:10px;margin:10px 0;border:1px solid #182033;border-radius:5px;
+}
+.modal-content button{
+    background:#182033;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;
+}
+.modal-content button:hover{background:#415788}
+
+/* ===== LOADER ===== */
+.loader{
+    position:fixed;inset:0;width:100%;height:100%;background:rgba(255,255,255,.9);
+    display:none;justify-content:center;align-items:center;z-index:1000;
+}
+.spinner{
+    width:40px;height:40px;border:4px solid #f3f3f3;border-top:4px solid #2A5C82;
+    border-radius:50%;animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== ASSISTANT BUTTON (mobile first, дубликат убран) ===== */
+.assistant-launch-button{
+    position:fixed;bottom:30px;right:30px;background:#182033;color:#fff;
+    font-size:18px;padding:16px 28px;border-radius:30px;text-decoration:none;
+    font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.25);
+    transition:.3s;z-index:9999;
+}
+.assistant-launch-button:hover{background:#415788;transform:translateY(-2px)}
+.assistant-launch-button:active{transform:translateY(1px)}
+
+/* ===== MEDIA ===== */
+@media(max-width:768px){
+    .header-content{flex-direction:column;gap:1rem}
+    .nav-menu{flex-wrap:wrap;justify-content:center}
+    .hero h2{font-size:2rem}
+    .search-container{margin:-4rem 1rem 0}
+    .search-form{grid-template-columns:1fr}
+    .hotel-grid{grid-template-columns:1fr}
+    .auth-buttons button{padding:8px;font-size:14px}
+    /* auth-line тоже нормально сожмётся, ничего добавлять не нужно */
+}
+
+/* ===== Ссылка профиля в хедере на тёмном фоне ===== */
+header .auth-buttons a{color:#000}        /* если фон станет тёмным — поменяйте на #fff */

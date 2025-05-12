@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Виртуальный помощник</title>
+  <link rel="stylesheet" href="site-style.css" />
+  <style>
+      body {
+          background-color: #182033;
+          color: #182033;
+          font-family: "Inter", sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+
+      .chat-page {
+          max-width: 600px;
+          margin: 3rem auto;
+          border: 2px solid #E3E7B4;
+          border-radius: 15px;
+          padding: 1rem;
+          background: #ffffff;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+          text-align: center;
+          color: #182033;
+          margin-bottom: 1rem;
+      }
+
+      .chat-body {
+          height: 400px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-bottom: 1rem;
+          border: 1px solid #ccc;
+          padding: 10px;
+          background-color: #f9f9f9;
+      }
+
+      .chat-input {
+          display: flex;
+          gap: 10px;
+      }
+
+      .chat-input input {
+          flex: 1;
+          padding: 10px;
+          border: 1px solid #182033;
+          border-radius: 5px;
+          font-size: 1rem;
+      }
+
+      .chat-input button {
+          padding: 10px 16px;
+          background: #182033;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      .message {
+          padding: 10px;
+          border-radius: 10px;
+          max-width: 80%;
+          font-size: 16px;
+      }
+
+      .message.user {
+          background-color: #415788;
+          color: white;
+          align-self: flex-end;
+      }
+
+      .message.bot {
+          background-color: #E3E7B4;
+          color: #182033;
+          align-self: flex-start;
+      }
+  </style>
+</head>
+<body>
+<div class="chat-page">
+  <h2>🤖 Виртуальный помощник</h2>
+  <div class="chat-body" id="chatBody">
+    <div class="message bot">Здравствуйте! Чем могу помочь?</div>
+  </div>
+  <form class="chat-input" onsubmit="sendToAI(event)">
+    <input type="text" id="user-input" placeholder="Введите сообщение..." autocomplete="off" />
+    <button type="submit" class="send-button">➤</button>
+  </form>
+</div>
+
+<script>
+  const messages = document.getElementById('chatBody');
+  const userInput = document.getElementById('user-input');
+
+  function sendToAI(event) {
+    event.preventDefault();
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    const userDiv = document.createElement("div");
+    userDiv.className = "message user";
+    userDiv.textContent = message;
+    messages.appendChild(userDiv);
+    userInput.value = "";
+
+    const botDiv = document.createElement("div");
+    botDiv.className = "message bot";
+    botDiv.textContent = "Печатаю...";
+    messages.appendChild(botDiv);
+
+    messages.scrollTop = messages.scrollHeight;
+
+    setTimeout(() => {
+      botDiv.textContent = generateResponse(message.toLowerCase());
+      messages.scrollTop = messages.scrollHeight;
+    }, 800);
+  }
+
+  function generateResponse(msg) {
+    msg = msg.toLowerCase();
+
+    if (msg.includes("привет") || msg.includes("hello")) {
+      return "Здравствуйте! Я помогу вам с поиском, ценами и бронированием отелей.";
+    }
+
+    if (msg.includes("помощь")) {
+      return "Вы можете спросить про цены, местоположение, рейтинг или удобства отелей.";
+    }
+
+    if (msg.includes("цены") || msg.includes("стоимость")) {
+      return "Цены на отели начинаются от ₸20 000 и выше, в зависимости от класса и расположения.";
+    }
+
+    if (msg.includes("как забронировать") || msg.includes("бронирование")) {
+      return "Нажмите кнопку 'Забронировать' под интересующим вас отелем.";
+    }
+
+    if (msg.includes("mega tower")) {
+      return "Mega Tower225 — это апартаменты в Алматы возле Парка Первого Президента. Примерная цена: ₸45 000 за ночь.";
+    }
+
+    if (msg.includes("renion city")) {
+      return "Renion City Hotel расположен возле Парка Панфиловцев. 4 звезды, ориентировочная цена: ₸50 000.";
+    }
+
+    if (msg.includes("mid-century")) {
+      return "Mid-century Charm — апартаменты в центре Алматы, рядом с Центральным стадионом. Подходит для долгого проживания.";
+    }
+
+    if (msg.includes("seven hills")) {
+      return "Seven Hills ЖК — апартаменты бизнес-класса рядом с ТРЦ MEGA. Отличный вариант для командировок.";
+    }
+    if (msg.includes("пока")) {
+      return "До свидания! Хорошего дня 😊 Если понадоблюсь — я здесь!";
+    }
+    if (msg.includes("до свидания")) {
+      return "До свидания! Хорошего дня 😊 Если понадоблюсь — я здесь!";
+    }
+    if (msg.includes("спасибо")) {
+      return "Пожалуйста! Обращайтесь, если нужна будет помощь 😊";
+    }
+    if (msg.includes("благодарю")) {
+      return "Пожалуйста! Обращайтесь, если нужна будет помощь 😊";
+    }
+
+    if (msg.includes("отмена")) return "Для отмены бронирования перейдите в личный кабинет.";
+    if (msg.includes("оплата")) return "Оплата производится через безопасный шлюз CloudPayments.";
+    if (msg.includes("контакт")) return "Наши контакты: +7 777 123 4567 или info@hotelfinder.kz";
+
+    return "Извините, я пока не знаю об этом отеле. Попробуйте написать его точное название.";
+  }
+</script>
+</body>
+</html>

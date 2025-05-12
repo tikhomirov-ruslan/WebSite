@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Панель управления отелями</title>
+
+  <!-- шрифты и иконки -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <!-- стили (те же) -->
+  <style>
+      :root{--primary:#4361ee;--secondary:#3f37c9;--danger:#f72585;
+          --dark:#212529;--gray:#6c757d}
+      *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif}
+      body{background:#f5f7fa;color:var(--dark)}
+      .admin-container{max-width:1200px;margin:0 auto;padding:2rem}
+      header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid #e0e0e0}
+      .logo{font-size:1.5rem;font-weight:600;color:var(--primary)}
+      .admin-nav{display:flex;gap:1rem}
+      .btn{padding:.5rem 1rem;border:none;border-radius:6px;cursor:pointer;font-weight:500;display:flex;align-items:center;gap:.5rem;transition:.3s}
+      .btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--secondary);transform:translateY(-2px)}
+      .btn-danger{background:var(--danger);color:#fff}.btn-danger:hover{background:#d3166b;transform:translateY(-2px)}
+      .btn-outline{background:transparent;border:1px solid var(--gray);color:var(--gray)}.btn-outline:hover{background:#f0f0f0}
+      .hotel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:1.5rem;margin-top:2rem}
+      .hotel-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:.3s}
+      .hotel-card:hover{transform:translateY(-5px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+      .hotel-image{width:100%;height:200px;object-fit:cover}
+      .hotel-content{padding:1.5rem}.hotel-title{font-size:1.25rem;margin-bottom:.5rem}
+      .hotel-description{color:var(--gray);margin-bottom:1rem;font-size:.9rem;line-height:1.5}
+      .hotel-price{font-weight:600;color:var(--primary);margin-bottom:1.5rem}.card-actions{display:flex;gap:.5rem}
+      /* modal */
+      .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.3s;z-index:1000}
+      .modal.active{opacity:1;visibility:visible}
+      .modal-content{background:#fff;padding:2rem;border-radius:12px;max-width:500px;width:90%;transform:translateY(20px);transition:.3s}
+      .modal.active .modal-content{transform:translateY(0)}
+      .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+      .form-group{margin-bottom:1rem}.form-group label{display:block;margin-bottom:.5rem}.form-control{width:100%;padding:.75rem;border:1px solid #ddd;border-radius:6px}
+  </style>
+</head>
+
+<body>
+<!-- проверяем, что админ -->
+<script>
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+  if (!currentUser || currentUser.role !== 'admin') location.href = 'index.html';
+</script>
+
+<div class="admin-container">
+  <header>
+    <div class="logo">Управление отелями</div>
+    <div class="admin-nav">
+      <button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Добавить отель</button>
+      <button class="btn btn-outline" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Выйти</button>
+    </div>
+  </header>
+
+  <div class="hotel-grid" id="hotelsContainer"></div>
+</div>
+
+<!-- modal -->
+<div class="modal" id="hotelModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Добавить отель</h3>
+      <button class="btn" onclick="closeModal()">&times;</button>
+    </div>
+    <form id="hotelForm">
+      <input type="hidden" id="hotelId">
+      <div class="form-group">
+        <label>Название</label>
+        <input type="text" class="form-control" id="hotelTitle" required>
+      </div>
+      <div class="form-group">
+        <label>Описание</label>
+        <textarea class="form-control" id="hotelDescription" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>URL изображения</label>
+        <input type="url" class="form-control" id="hotelImage" required>
+      </div>
+      <div class="form-group">
+        <label>Цена (₸)</label>
+        <input type="number" class="form-control" id="hotelPrice" required>
+      </div>
+      <div class="form-group">
+        <label>Рейтинг (★★★…)</label>
+        <input type="text" class="form-control" id="hotelRating" value="★★★">
+      </div>
+      <button class="btn btn-primary" type="submit">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  let hotels = [];            // сюда придут данные из БД
+  let editingId = null;
+
+  const container = document.getElementById('hotelsContainer');
+  const modal     = document.getElementById('hotelModal');
+  const form      = document.getElementById('hotelForm');
+  const titleH3   = document.getElementById('modalTitle');
+
+  /* ---- загрузка списка ---- */
+  async function fetchHotels() {
+    const res = await fetch('/api/hotels');
+    hotels = await res.json();
+    render();
+  }
+  document.addEventListener('DOMContentLoaded', fetchHotels);
+
+  function render() {
+    container.innerHTML = '';
+    if (!hotels.length) {
+      container.innerHTML = '<p style="grid-column:1/-1;text-align:center">Нет отелей</p>';
+      return;
+    }
+    hotels.forEach(h => {
+      const card = document.createElement('div');
+      card.className = 'hotel-card';
+      card.innerHTML = `
+          <img src="${h.image}" class="hotel-image">
+          <div class="hotel-content">
+            <h3 class="hotel-title">${h.title}</h3>
+            <p class="hotel-description">${h.description}</p>
+            <div class="hotel-price">${h.price}</div>
+            <div class="card-actions">
+              <button class="btn btn-primary" onclick="editHotel(${h.id})"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-danger" onclick="deleteHotel(${h.id})"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>`;
+      container.appendChild(card);
+    });
+  }
+
+  /* ---- modal helpers ---- */
+  function openModal() {
+    editingId = null;
+    form.reset();
+    titleH3.textContent = 'Добавить отель';
+    modal.classList.add('active');
+  }
+  function closeModal() { modal.classList.remove('active'); }
+
+  /* ---- edit ---- */
+  function editHotel(id) {
+    const h = hotels.find(x => x.id === id);
+    if (!h) return;
+    editingId = id;
+    form.hotelTitle.value       = h.title;
+    form.hotelDescription.value = h.description;
+    form.hotelImage.value       = h.image;
+    form.hotelPrice.value       = parseInt(h.price);
+    form.hotelRating.value      = h.rating;
+    titleH3.textContent = 'Редактировать отель';
+    modal.classList.add('active');
+  }
+
+  /* ---- delete ---- */
+  async function deleteHotel(id) {
+    if (!confirm('Удалить?')) return;
+    await fetch(`/api/hotels/${id}`, {
+      method:'DELETE',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ login: currentUser.login })
+    });
+    fetchHotels();
+  }
+
+  /* ---- add / update ---- */
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const payload = {
+      login: currentUser.login,
+      title: form.hotelTitle.value.trim(),
+      description: form.hotelDescription.value.trim(),
+      image: form.hotelImage.value.trim(),
+      price: form.hotelPrice.value.trim() + ' ₸/ночь',
+      rating: form.hotelRating.value.trim()
+    };
+
+    if (editingId) {
+      await fetch(`/api/hotels/${editingId}`, {
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+    } else {
+      await fetch('/api/hotels', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+    }
+    closeModal();
+    fetchHotels();
+  });
+
+  /* ---- logout ---- */
+  function logout() {
+    localStorage.removeItem('user');
+    location.href = 'index.html';
+  }
+
+  /* закрываем модалку кликом вне неё */
+  window.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+</script>
+</body>
+</html>

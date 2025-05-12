@@ -1,0 +1,14 @@
+# Node.js
+node_modules/
+.env
+*.log
+
+# SQLite (если база не нужна в Git)
+db.sqlite
+
+# WebStorm/JetBrains
+.idea/
+
+# ОС
+.DS_Store
+Thumbs.db

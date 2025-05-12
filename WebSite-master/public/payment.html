@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Оплата бронирования</title>
+    <style>
+        /* ваш существующий CSS */
+        body{background:#23272A;font-family:"Inter",sans-serif;margin:0;padding:20px;color:#D1D8E0;}
+        .container{background:#2C3A47;padding:30px;border-radius:12px;max-width:450px;margin:40px auto;box-shadow:0 6px 20px rgba(0,0,0,.2);}
+        h2{text-align:center;font-size:24px;color:#E3E7B4;margin-bottom:20px;}
+        select,input,button{width:100%;padding:12px;margin:10px 0;border-radius:8px;font-size:16px;background:#34495E;color:#D1D8E0;border:1px solid #5C6B7E;transition:.3s;}
+        button{background:#1C2537;color:#E3E7B4;cursor:pointer;font-weight:700;}
+        button:hover{background:#415788;transform:scale(1.05);}
+        img{display:block;margin:20px auto;max-height:200px;border-radius:12px;transition:.3s;}
+        img:hover{transform:scale(1.05);}
+        .payment-option{display:flex;justify-content:space-between;align-items:center;}
+        .payment-option label{color:#E3E7B4;font-size:16px;font-weight:400;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 id="page-title">Оплата бронирования</h2>
+
+    <div class="payment-option">
+        <label for="payment-method">Выберите способ оплаты:</label>
+        <select id="payment-method" onchange="togglePaymentForm()">
+            <option value="visa">Visa</option>
+            <option value="mastercard">Mastercard</option>
+            <option value="kaspi">Kaspi</option>
+        </select>
+    </div>
+
+    <!-- Карточная форма -->
+    <div id="card-payment">
+        <label for="card-number">Номер карты</label>
+        <input id="card-number"      type="text" placeholder="1234 5678 9012 3456" required>
+        <label for="card-expiry">Срок действия (MM/YY)</label>
+        <input id="card-expiry"      type="text" placeholder="MM/YY" required>
+        <label for="card-cvv">CVV</label>
+        <input id="card-cvv"         type="text" placeholder="123" required>
+        <button id="pay-card">Оплатить</button>
+    </div>
+
+    <!-- Kaspi QR -->
+    <div id="kaspi-payment" style="display:none;">
+        <p style="text-align:center;">Отсканируйте QR-код для оплаты Kaspi:</p>
+        <img src="qr.jpg" alt="Kaspi QR-код">
+        <button id="kaspi-paid">Я оплатил</button>
+    </div>
+</div>
+
+<script>
+    // Переключаем формы
+    function togglePaymentForm() {
+        const m = document.getElementById('payment-method').value;
+        document.getElementById('card-payment').style.display  = m === 'kaspi' ? 'none'  : 'block';
+        document.getElementById('kaspi-payment').style.display = m === 'kaspi' ? 'block' : 'none';
+    }
+
+    // Разбираем параметры из URL
+    const params = new URLSearchParams(window.location.search);
+    const pageTitle = params.get('hotelTitle');
+    const hotelId   = params.get('hotelId');
+
+    // Если hotelTitle есть — выводим
+    if (pageTitle) {
+        document.getElementById('page-title').textContent = `Оплата бронирования: ${pageTitle}`;
+    }
+
+    // Проверим наличие user и hotelId
+    function getUser() {
+        try {
+            return JSON.parse(localStorage.getItem('user'));
+        } catch {
+            return null;
+        }
+    }
+
+    async function confirmBooking() {
+        const user = getUser();
+        if (!user || !hotelId) {
+            return alert('Ошибка данных (user / hotelId).');
+        }
+
+        const res = await fetch('/api/book', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({
+                login:   user.login,
+                email:   user.email,   // берём e-mail, который пользователь указал при регистрации
+                hotelId
+            })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            alert('Бронирование подтверждено! Подробности отправлены на почту.');
+        } else {
+            alert(data.message || 'Ошибка бронирования');
+        }
+    }
+
+    // Навешиваем события на обе кнопки
+    document.getElementById('pay-card').addEventListener('click', confirmBooking);
+    document.getElementById('kaspi-paid').addEventListener('click', confirmBooking);
+</script>
+</body>
+</html>
